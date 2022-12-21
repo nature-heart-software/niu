@@ -98,6 +98,11 @@ const defineMainWindow = () => {
         screen.on('display-metrics-changed', () => updateWindowPosition());
         screen.on('display-added', () => updateWindowPosition());
         screen.on('display-removed', () => updateWindowPosition());
+        window.on('blur', () => {
+            if (isShown && process.env.NODE_ENV !== 'development') {
+                toggleShow();
+            }
+        })
         if (process.env.VITE_DEV_SERVER_URL) {
             await window?.loadURL(process.env.VITE_DEV_SERVER_URL)
             window.webContents.openDevTools({
