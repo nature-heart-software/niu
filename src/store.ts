@@ -23,9 +23,14 @@ export const useStore = defineStore('main',
             setCurrentPageId(pages.value[pageIndex + 1] ? pages.value[pageIndex + 1].id : pages.value[pageIndex - 1] ? pages.value[pageIndex - 1].id : null)
             pages.value.splice(pageIndex, 1)
         }
+        const updatePage = (id: Page['id'], page: Partial<Page>) => {
+            const pageIndex = pages.value.findIndex((page) => page.id === id)
+            pages.value.splice(pageIndex, 1, { ...pages.value[pageIndex], ...page })
+        }
         return {
             pages,
             addPage,
+            updatePage,
             removePage,
             currentPage,
             currentPageId,

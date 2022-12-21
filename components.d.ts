@@ -14,5 +14,6 @@ declare module '@vue/runtime-core' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     NiNavigation: typeof import('./src/components/NiNavigation.vue')['default']
     NiNewPage: typeof import('./src/components/NiNewPage.vue')['default']
+    NiPage: typeof import('./src/components/NiPage.vue')['default']
   }
 }

@@ -5,7 +5,7 @@
     </button>
     <template v-for="page in pages">
       <button type="button" @click="store.setCurrentPageId(page.id)" @click.right="store.removePage(page.id)">
-        <img class="w-[24px] h-[24px]" :src="`https://www.google.com/s2/favicons?sz=24&domain_url=${page.url}`">
+        <img class="w-[16px] h-[16px]" :src="`https://www.google.com/s2/favicons?sz=16&domain_url=${page.url}`">
       </button>
     </template>
   </nav>
