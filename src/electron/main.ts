@@ -73,12 +73,12 @@ const defineMainWindow = () => {
         const allDisplays = screen.getAllDisplays();
         targetDisplay = minBy(allDisplays, (display) => {
             return  display.bounds.x;
-        });
+        }) || screen.getPrimaryDisplay();
         window?.setPosition(isShown ? targetDisplay.workArea.x : targetDisplay.workArea.x - targetDisplay.workArea.width/2, targetDisplay.workArea.y);
         window?.setSize(targetDisplay.workArea.width/2, targetDisplay.workArea.height);
     }
 
-    const create = () => {
+    const create = async () => {
         window = new BrowserWindow({
             frame: false,
             alwaysOnTop: true,
@@ -89,6 +89,7 @@ const defineMainWindow = () => {
             webPreferences: {
                 nodeIntegration: false,
                 contextIsolation: true,
+                webviewTag: true,
             },
         });
         updateWindowPosition();
@@ -98,9 +99,12 @@ const defineMainWindow = () => {
         screen.on('display-added', () => updateWindowPosition());
         screen.on('display-removed', () => updateWindowPosition());
         if (process.env.VITE_DEV_SERVER_URL) {
-            window?.loadURL(process.env.VITE_DEV_SERVER_URL)
+            await window?.loadURL(process.env.VITE_DEV_SERVER_URL)
+            window.webContents.openDevTools({
+                mode: 'detach'
+            });
         } else {
-            window?.loadFile('index.html');
+            await window?.loadFile('index.html');
         }
     }
 

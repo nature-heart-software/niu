@@ -1,29 +1,24 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="flex">
+    <NiNavigation class="w-[48px] h-screen"/>
+    <div class="flex-1 h-screen">
+      <template v-for="page in pages">
+        <div class="w-full h-full" v-show="page.id === currentPageId">
+          <webview :src="page.url" class="w-full h-full"/>
+        </div>
+      </template>
+      <template v-if="!currentPageId">
+        <NiNewPage class="w-full h-full" />
+      </template>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
+<script setup lang="ts">
+import NiNavigation from './components/NiNavigation.vue'
+import NiNewPage from './components/NiNewPage.vue'
+import { useStore } from './store'
+import { storeToRefs } from 'pinia'
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+const store = useStore()
+const {pages, currentPageId} = storeToRefs(store)
+</script>
