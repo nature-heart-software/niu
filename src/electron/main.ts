@@ -1,7 +1,9 @@
 import {app, BrowserWindow, screen, globalShortcut, Display} from 'electron';
 import minBy from 'lodash/minBy';
 import gsap from 'gsap';
-
+import {join} from 'path';
+import * as path from 'path'
+import * as url from 'url'
 type Rect = {
     x: number;
     y: number;
@@ -80,12 +82,12 @@ const defineMainWindow = () => {
 
     const create = async () => {
         window = new BrowserWindow({
-            frame: false,
+            // frame: false,
             alwaysOnTop: true,
             center: false,
             maximizable: false,
             resizable: true,
-            skipTaskbar: true,
+            // skipTaskbar: true,
             webPreferences: {
                 nodeIntegration: false,
                 contextIsolation: true,
@@ -93,7 +95,7 @@ const defineMainWindow = () => {
             },
         });
         updateWindowPosition();
-        window?.setMenu(null);
+        // window?.setMenu(null);
         globalShortcut.register('CommandOrControl+Tab', () => toggleShow());
         screen.on('display-metrics-changed', () => updateWindowPosition());
         screen.on('display-added', () => updateWindowPosition());
@@ -109,7 +111,14 @@ const defineMainWindow = () => {
                 mode: 'detach'
             });
         } else {
-            await window?.loadFile('index.html');
+            await window?.loadFile(
+                url.format({
+                    pathname: path.join(__dirname, `/build/index.html`)
+                })
+            )
+            window.webContents.openDevTools({
+                mode: 'detach'
+            });
         }
     }
 

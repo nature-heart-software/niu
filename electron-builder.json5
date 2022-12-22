@@ -1,0 +1,14 @@
+/**
+ * @see https://www.electron.build/configuration/configuration
+ */
+{
+  "appId": "com.nhs.niu",
+  "artifactName": '${name}-setup-${version}-${os}.${ext}',
+  "files": [
+    "dist",
+    "dist-electron"
+  ],
+  "directories": {
+    "output": "releases/${version}"
+  }
+}

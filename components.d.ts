@@ -8,10 +8,6 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElMenu: typeof import('element-plus/es')['ElMenu']
-    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
-    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     NiNavigation: typeof import('./src/components/NiNavigation.vue')['default']
     NiNewPage: typeof import('./src/components/NiNewPage.vue')['default']
     NiPage: typeof import('./src/components/NiPage.vue')['default']
