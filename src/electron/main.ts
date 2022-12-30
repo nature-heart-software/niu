@@ -1,9 +1,12 @@
-import {app, BrowserWindow, screen, globalShortcut, Display, protocol} from 'electron';
+import {app, BrowserWindow, screen, globalShortcut, Display, protocol, Tray, Menu} from 'electron';
+import AutoLaunch from 'auto-launch';
 import minBy from 'lodash/minBy';
 import gsap from 'gsap';
 import {join} from 'path';
 import * as path from 'path'
 import * as url from 'url'
+import pkg from '../../package.json'
+
 type Rect = {
     x: number;
     y: number;
@@ -14,6 +17,7 @@ type Point = {
     x: number;
     y: number;
 }
+
 const defineMainWindow = () => {
     let window: BrowserWindow | null;
     let targetDisplay: Display;
@@ -124,11 +128,44 @@ const defineMainWindow = () => {
     }
 }
 
+let trayInstance: Tray | null
+const defineTray = () => {
+    const create = () => {
+        trayInstance = new Tray(join(__dirname, '../icon.png'))
+        const contextMenu = Menu.buildFromTemplate([
+            { label: 'Exit', type: 'normal', role: 'quit' },
+        ])
+        trayInstance.setToolTip(`${app.name} - v${app.getVersion()}`)
+        trayInstance.setContextMenu(contextMenu)
+    }
+    const destroy = () => {
+        trayInstance = null
+    }
+    return {
+        create,
+        destroy,
+    }
+}
+
 const mainWindow = defineMainWindow();
+const tray = defineTray();
 app.on('ready', () => {
+    const launcher = new AutoLaunch({
+        name: pkg.productName,
+        path: app.getPath('exe'),
+    });
+    launcher.isEnabled()
+        .then((isEnabled: boolean) => {
+            if(isEnabled){
+                return;
+            }
+            launcher.enable();
+        })
     mainWindow.create();
+    tray.create();
 });
 
 app.on('quit', () => {
     mainWindow.destroy();
+    tray.destroy();
 });

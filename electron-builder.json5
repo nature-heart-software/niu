@@ -9,6 +9,6 @@
     "dist-electron"
   ],
   "directories": {
-    "output": "releases/${version}"
+    "output": "releases"
   }
 }

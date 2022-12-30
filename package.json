@@ -7,10 +7,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && electron-builder",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:icons": "npx electron-icon-builder --input icon.png --output build --flatten"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
+    "auto-launch": "^5.0.5",
     "vue": "^3.2.45"
   },
   "devDependencies": {
