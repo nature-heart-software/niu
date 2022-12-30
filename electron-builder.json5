@@ -6,7 +6,8 @@
   "artifactName": '${name}-setup-${version}-${os}.${ext}',
   "files": [
     "dist",
-    "dist-electron"
+    "dist-electron",
+    "icon.png"
   ],
   "directories": {
     "output": "releases"
