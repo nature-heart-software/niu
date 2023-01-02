@@ -3,8 +3,6 @@ import AutoLaunch from 'auto-launch';
 import minBy from 'lodash/minBy';
 import gsap from 'gsap';
 import {join} from 'path';
-import * as path from 'path'
-import * as url from 'url'
 import pkg from '../../package.json'
 
 type Rect = {
@@ -28,6 +26,7 @@ const defineMainWindow = () => {
             onStart: () => {
                 window?.setPosition(target.x - bounds.width, target.y);
                 window?.setOpacity(1)
+                window?.show()
             },
             onUpdate: function(){
                 window?.setPosition(bounds.x, bounds.y);
@@ -48,6 +47,7 @@ const defineMainWindow = () => {
             onComplete: function(){
                 window?.setPosition(target.x - bounds.width, target.y);
                 window?.setOpacity(0)
+                window?.hide()
             }
         });
 
