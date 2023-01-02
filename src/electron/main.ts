@@ -25,6 +25,10 @@ const defineMainWindow = () => {
 
     const show = (bounds: Rect, target: Point) => {
         gsap.to(bounds, .3, {x: target.x, roundProps:"x",
+            onStart: () => {
+                window?.setPosition(target.x - bounds.width, target.y);
+                window?.setOpacity(1)
+            },
             onUpdate: function(){
                 window?.setPosition(bounds.x, bounds.y);
                 window?.focus();
@@ -43,6 +47,7 @@ const defineMainWindow = () => {
             },
             onComplete: function(){
                 window?.setPosition(target.x - bounds.width, target.y);
+                window?.setOpacity(0)
             }
         });
 
