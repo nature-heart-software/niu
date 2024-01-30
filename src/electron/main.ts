@@ -26,7 +26,7 @@ const defineMainWindow = () => {
             onStart: () => {
                 window?.setPosition(target.x - bounds.width, target.y);
                 window?.setOpacity(1)
-                window?.show()
+                // window?.show()
             },
             onUpdate: function(){
                 window?.setPosition(bounds.x, bounds.y);
@@ -47,7 +47,7 @@ const defineMainWindow = () => {
             onComplete: function(){
                 window?.setPosition(target.x - bounds.width, target.y);
                 window?.setOpacity(0)
-                window?.hide()
+                // window?.hide()
             }
         });
 
